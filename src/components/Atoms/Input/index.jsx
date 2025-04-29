@@ -1,15 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import COLOR from "../../../variables/color";
 import FONTFAMILY from "../../../variables/texts";
 import TEXT from "../../../variables/texts";
-export const Input = () => {
-  const [text, setText] = useState("");
-  const handleChange = (e) => {
-    setText(e.target.value);
+import { useRef, useEffect } from "react";
+export const Input = ({ onEditComplete, defaultValue }) => {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  const handleBlur = () => {
+    onEditComplete(inputRef.current.value);
   };
-  return <StyledInput type="text" value={text} onChange={handleChange} />;
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      if (inputRef.current) {
+        onEditComplete(inputRef.current.value);
+      }
+    }
+  };
+  return (
+    <StyledInput
+      ref={inputRef}
+      type="text"
+      defaultValue={defaultValue}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+    />
+  );
 };
 
 const StyledInput = styled.input`
