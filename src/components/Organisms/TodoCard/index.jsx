@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { AddTaskButton } from "../../Atoms/AddTaskButton";
 import { Task } from "../../Molecules/Task";
-import { StyledWrapper } from "./style";
-import { StyledTaskList } from "./style";
+import styled from "styled-components";
+import COLOR from "../../../variables/color";
 export const TodoCard = () => {
   const [taskList, setTaskList] = useState([]);
   const onAddTaskButtonClick = () => {
@@ -21,7 +21,7 @@ export const TodoCard = () => {
 
   const onTaskNameChange = (value, index) => {
     setTaskList((prevList) => {
-      if (value.trim() === "") {
+      if (value === "") {
         // 1. タスク名が空だったら削除
         return prevList.filter((_, i) => i !== index);
       } else {
@@ -46,7 +46,21 @@ export const TodoCard = () => {
           />
         ))}
       </StyledTaskList>
-      ;
     </StyledWrapper>
   );
 };
+const StyledWrapper = styled.div`
+  background-color: ${COLOR.LIGHT_BLACK};
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 4px;
+`;
+const StyledTaskList = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  flex-direction: column;
+`;
