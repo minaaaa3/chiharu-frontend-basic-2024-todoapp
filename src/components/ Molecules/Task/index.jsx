@@ -31,19 +31,12 @@ export const Task = ({
           <EditButton onClick={onEditButtonClick} />
         </StyledNameAndButtonWrapper>
       ) : (
-        <StyledEditButtonWrapper>
-          <Input onEditComplete={onEditComplete} defaultValue={taskName} />
-        </StyledEditButtonWrapper>
+        <Input onEditComplete={onEditComplete} defaultValue={taskName} />
       )}
     </StyledWrapper>
   );
 };
 
-const StyledEditButtonWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 2px 6px;
-`;
 const StyledNameAndButtonWrapper = styled.div`
   gap: 10px;
   display: flex;
