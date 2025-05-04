@@ -60,6 +60,7 @@ const StyledWrapper = styled.div`
   border-radius: 4px;
   max-width: 500px;
   width: 100%;
+  box-sizing: border-box;
 `;
 const StyledTaskList = styled.div`
   display: flex;
