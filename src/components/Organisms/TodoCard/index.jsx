@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AddTaskButton } from "../../Atoms/AddTaskButton";
 import { Task } from "../../Molecules/Task";
 import styled from "styled-components";
@@ -7,6 +7,18 @@ import COLOR from "../../../variables/color";
 
 export const TodoCard = () => {
   const [taskList, setTaskList] = useState([]);
+  const STORAGE_KEY = "tasks";
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    try {
+      const parsed = JSON.parse(stored);
+      setTaskList(parsed);
+    } catch (error) {
+      console.error("タスクリストの読み込みに失敗しました:", error);
+      setTaskList([]);
+    }
+  }, []);
+
   const onAddTaskButtonClick = () => {
     const newTask = {
       name: "",
@@ -15,6 +27,9 @@ export const TodoCard = () => {
 
     setTaskList((prevList) => [...prevList, newTask]);
   };
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
 
   const onTaskComplete = (index) => {
     setTaskList((prevList) => prevList.filter((_, i) => i !== index));
@@ -33,6 +48,7 @@ export const TodoCard = () => {
       }
     });
   };
+
   return (
     <StyledWrapper>
       <AddTaskButton onClick={onAddTaskButtonClick}>タスク追加</AddTaskButton>
@@ -50,6 +66,7 @@ export const TodoCard = () => {
     </StyledWrapper>
   );
 };
+
 const StyledWrapper = styled.div`
   background-color: ${COLOR.LIGHT_BLACK};
   display: flex;
