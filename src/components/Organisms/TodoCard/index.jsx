@@ -10,12 +10,9 @@ export const TodoCard = () => {
   const STORAGE_KEY = "tasks";
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    try {
+    if (stored) {
       const parsed = JSON.parse(stored);
       setTaskList(parsed);
-    } catch (error) {
-      console.error("タスクリストの読み込みに失敗しました:", error);
-      setTaskList([]);
     }
   }, []);
 
@@ -43,7 +40,11 @@ export const TodoCard = () => {
       } else {
         // 2. タスク名が空でなければ更新
         const newList = [...prevList]; // 配列をコピー
-        newList[index] = { ...newList[index], name: value }; // 該当タスクのnameを書き換え
+        newList[index] = {
+          ...newList[index],
+          name: value,
+          initializing: false,
+        }; // 該当タスクのnameを書き換え
         return newList;
       }
     });
