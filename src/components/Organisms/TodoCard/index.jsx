@@ -10,11 +10,10 @@ export const TodoCard = () => {
   const STORAGE_KEY = "tasks";
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    try {
+    if (stored) {
       const parsed = JSON.parse(stored);
-      setTaskList(parsed);
-    } catch (error) {
-      console.error("タスクリストの読み込みに失敗しました:", error);
+      setTaskList(parsed || []);
+    } else {
       setTaskList([]);
     }
   }, []);
