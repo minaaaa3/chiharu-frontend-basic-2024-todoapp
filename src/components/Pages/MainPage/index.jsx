@@ -18,4 +18,9 @@ const StyledWrapper = styled.div`
   align-items: center;
   gap: 20px;
   width: 100%;
+  box-sizing: border-box;
+  padding: 60px 20px 20px 20px;
+  @media (max-width: 320px) {
+    padding: 20px;
+  }
 `;
