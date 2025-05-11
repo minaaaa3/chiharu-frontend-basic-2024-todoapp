@@ -21,7 +21,7 @@ export const TodoCard = () => {
 
   const onTaskNameChange = (value, index) => {
     setTaskList((prevList) => {
-      if (value === "") {
+      if (value.trim === "") {
         // 1. タスク名が空だったら削除
         return prevList.filter((_, i) => i !== index);
       } else {
