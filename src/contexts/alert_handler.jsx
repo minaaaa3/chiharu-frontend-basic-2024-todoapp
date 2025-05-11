@@ -1,23 +1,24 @@
 import React, { createContext, useContext, useState } from "react";
+
 const AlertHandlerContext = createContext();
+
 export const AlertHandlerProvider = ({ children }) => {
   const [alertState, setAlertState] = useState({
-    Visible: false,
-    errortext: "",
+    visible: false,
+    errorText: "",
   });
+
   const setAlert = (errorText) => {
     setAlertState({
-      Visible: true,
+      visible: true,
       errorText: errorText,
     });
-    setTimeout(() => {
-      setAlertState({ visible: false, errortext: "" }, 3000);
-    });
   };
+
   const closeAlert = () => {
     setAlertState({
       visible: false,
-      errortext: "",
+      errorText: "",
     });
   };
   const contextValue = {
@@ -31,6 +32,4 @@ export const AlertHandlerProvider = ({ children }) => {
     </AlertHandlerContext.Provider>
   );
 };
-export const useAlertHandler = ({ children }) => {
-  const context = useContext(AlertHandlerContext);
-};
+export const useAlertHandlerContext = () => useContext(AlertHandlerContext);

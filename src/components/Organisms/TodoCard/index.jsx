@@ -4,6 +4,7 @@ import { AddTaskButton } from "../../Atoms/AddTaskButton";
 import { Task } from "../../Molecules/Task";
 import styled from "styled-components";
 import COLOR from "../../../variables/color";
+import { useAlertHandlerContext } from "../../../contexts/alert_handler";
 
 export const TodoCard = () => {
   const [taskList, setTaskList] = useState([]);
@@ -31,11 +32,12 @@ export const TodoCard = () => {
   const onTaskComplete = (index) => {
     setTaskList((prevList) => prevList.filter((_, i) => i !== index));
   };
-
+  const { setAlert } = useAlertHandlerContext();
   const onTaskNameChange = (value, index) => {
     setTaskList((prevList) => {
       if (value === "") {
         // 1. タスク名が空だったら削除
+        setAlert("タスク名が空です");
         return prevList.filter((_, i) => i !== index);
       } else {
         // 2. タスク名が空でなければ更新
