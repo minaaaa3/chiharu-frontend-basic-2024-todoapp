@@ -1,11 +1,11 @@
 // Organisms/AlertManager.tsx
 import React from "react";
 import { useEffect } from "react";
-import { useAlertHandleContext } from "../../../contexts/alert_handler";
+import { useAlertHandlerContext } from "../../../contexts/alert_handler";
 import { Alert } from "../../Atoms/Alert";
 
 const AlertManager = () => {
-  const alertHandler = useAlertHandleContext();
+  const alertHandler = useAlertHandlerContext();
 
   useEffect(() => {
     if (alertHandler.visible) {
